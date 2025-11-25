@@ -27,7 +27,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$PR_BRANCH"
           mkdir -p docs
-          cat > docs/README.md <<'EOF'
+          cat > docs/README.md <<EOF
 # OctoAcme — Project Management Overview
 
 OctoAcme runs projects with a lightweight, outcome-driven lifecycle and a compact set of repeatable artifacts. Projects start with a Project One-pager capturing the problem, objectives, success metrics, primary stakeholders, and a high-level timeline. Planning breaks work into shippable increments, produces a prioritized backlog and release plan, and defines a clear Definition of Done (DoD). Core artifacts include the One-pager / Project Charter, prioritized backlog, Release Plan, DoD, Risk Register, and Retrospective action items — all maintained in the project repo under docs/.
