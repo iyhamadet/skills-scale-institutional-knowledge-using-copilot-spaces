@@ -42,19 +42,22 @@ jobs:
           git commit -m "docs: add OctoAcme project management overview (docs/README.md)"
           git push --set-upstream origin "$PR_BRANCH"
 
-      - id: create_pr
-        name: Create pull request
-        uses: peter-evans/create-pull-request@v5
+      - name: Create pull request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.PR_BRANCH }}
+          delete-branch: true
+          base: main
           title: "docs: add OctoAcme project management overview"
           body: |
-            Adds docs/README.md with a brief overview of OctoAcme project management processes (workflows, roles, communication cadence, and QA).
+            Adds a project management overview in `docs/README.md`.
 
-            Related to: #${{ github.event.issue.number }}
-          base: main
-          head: ${{ env.PR_BRANCH }}
+            Triggered from #${{ github.event.issue.number }}
+          labels: documentation
           reviewers: iyhamadet
+          draft: false
 
       - name: Comment on the originating issue with PR link
         uses: actions/github-script@v6
