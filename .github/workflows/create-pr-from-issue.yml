@@ -21,14 +21,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create branch and add docs/README.md
+      - name: Create branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$PR_BRANCH"
-          mkdir -p docs
-          cat > docs/README.md <<EOF
-# OctoAcme — Project Management Overview
+
+      - name: Create docs/README.md
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            const readmeContent = `# OctoAcme — Project Management Overview
 
 OctoAcme runs projects with a lightweight, outcome-driven lifecycle and a compact set of repeatable artifacts. Projects start with a Project One-pager capturing the problem, objectives, success metrics, primary stakeholders, and a high-level timeline. Planning breaks work into shippable increments, produces a prioritized backlog and release plan, and defines a clear Definition of Done (DoD). Core artifacts include the One-pager / Project Charter, prioritized backlog, Release Plan, DoD, Risk Register, and Retrospective action items — all maintained in the project repo under docs/.
 
@@ -37,7 +43,16 @@ Work is organized around a disciplined backlog-and-PR workflow tied to a project
 Roles and responsibilities are explicit so ownership and decisions are unambiguous: Product Managers define outcomes and prioritize the backlog; Project Managers coordinate delivery, schedules, risks and stakeholder communication; Developers implement and test features; and QA validates quality and acceptance criteria. These personas and responsibilities are used in project docs and exercises to clarify who does what and when.
 
 Communication and quality assurance are embedded into cadence and release processes. The team runs daily standups, weekly delivery syncs, and sprint/milestone demos, with monthly stakeholder updates and documented escalation paths for blockers and incidents. QA practices include unit, integration, and end-to-end smoke tests, CI linting and security scans, manual acceptance testing where required, and a deployment checklist with rollback and incident playbooks. Risk and status templates (weekly status, incident communications) and a living risk register ensure transparency and consistent stakeholder updates.
-EOF
+`;
+            
+            const dir = path.join(process.env.GITHUB_WORKSPACE, 'docs');
+            if (!fs.existsSync(dir)) {
+              fs.mkdirSync(dir, { recursive: true });
+            }
+            fs.writeFileSync(path.join(dir, 'README.md'), readmeContent);
+
+      - name: Commit and push
+        run: |
           git add docs/README.md
           git commit -m "docs: add OctoAcme project management overview (docs/README.md)"
           git push --set-upstream origin "$PR_BRANCH"
