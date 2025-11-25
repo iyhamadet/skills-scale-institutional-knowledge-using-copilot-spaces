@@ -10,7 +10,7 @@ jobs:
     if: contains(github.event.comment.body, '/create-pr')
     runs-on: ubuntu-latest
     env:
-      PR_BRANCH: docs/add-octoacme-readme-${{ github.event.issue.number }}
+      PR_BRANCH: docs/add-octoacme-readme-${{ github.event.issue.number }}-${{ github.run_id }}
     permissions:
       contents: write
       pull-requests: write
