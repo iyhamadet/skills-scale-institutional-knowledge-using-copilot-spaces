@@ -26,17 +26,18 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$PR_BRANCH"
           mkdir -p docs
-          cat > docs/README.md << 'DOCEOF'
-# OctoAcme — Project Management Overview
+          cat > docs/README.md << 'EOF'
+          # OctoAcme - Project Management Overview
+          OctoAcme runs projects with a lightweight, outcome-driven lifecycle and a compact set of repeatable artifacts. Projects start with a Project One-pager capturing the problem, objectives, success metrics, primary stakeholders, and a high-level timeline.
 
-OctoAcme runs projects with a lightweight, outcome-driven lifecycle and a compact set of repeatable artifacts. Projects start with a Project One-pager capturing the problem, objectives, success metrics, primary stakeholders, and a high-level timeline. Planning breaks work into shippable increments, produces a prioritized backlog and release plan, and defines a clear Definition of Done (DoD). Core artifacts include the One-pager / Project Charter, prioritized backlog, Release Plan, DoD, Risk Register, and Retrospective action items — all maintained in the project repo under docs/.
+          Planning breaks work into shippable increments, produces a prioritized backlog and release plan, and defines a clear Definition of Done (DoD). Core artifacts include the One-pager / Project Charter, prioritized backlog, Release Plan, DoD, Risk Register, and Retrospective action items — all maintained in the project repo under docs/.
 
-Work is organized around a disciplined backlog-and-PR workflow tied to a project board (Backlog → Ready → In Progress → In Review → QA → Done). Backlog items use a template with acceptance criteria, owner, and estimate. Pull requests are kept small when possible, reference the linked issue and acceptance criteria, run CI and security scans before review, and require at least one approval. Sprint and milestone planning are timeboxed; items must meet the DoD before being pulled into an iteration, and cross-team dependencies are recorded and escalated during regular syncs.
+          Work is organized around a disciplined backlog-and-PR workflow tied to a project board (Backlog → Ready → In Progress → In Review → QA → Done). Backlog items use a template with acceptance criteria, owner, and estimate. Pull requests are kept small when possible, reference the linked issue and acceptance criteria, run CI and security scans before review, and require at least one approval. Sprint and milestone planning are timeboxed; items must meet the DoD before being pulled into an iteration, and cross-team dependencies are recorded and escalated during regular syncs.
 
-Roles and responsibilities are explicit so ownership and decisions are unambiguous: Product Managers define outcomes and prioritize the backlog; Project Managers coordinate delivery, schedules, risks and stakeholder communication; Developers implement and test features; and QA validates quality and acceptance criteria. These personas and responsibilities are used in project docs and exercises to clarify who does what and when.
+          Roles and responsibilities are explicit so ownership and decisions are unambiguous: Product Managers define outcomes and prioritize the backlog; Project Managers coordinate delivery, schedules, risks and stakeholder communication; Developers implement and test features; and QA validates quality and acceptance criteria. These personas and responsibilities are used in project docs and exercises to clarify who does what and when.
 
-Communication and quality assurance are embedded into cadence and release processes. The team runs daily standups, weekly delivery syncs, and sprint/milestone demos, with monthly stakeholder updates and documented escalation paths for blockers and incidents. QA practices include unit, integration, and end-to-end smoke tests, CI linting and security scans, manual acceptance testing where required, and a deployment checklist with rollback and incident playbooks. Risk and status templates (weekly status, incident communications) and a living risk register ensure transparency and consistent stakeholder updates.
-DOCEOF
+          Communication and quality assurance are embedded into cadence and release processes. The team runs daily standups, weekly delivery syncs, and sprint/milestone demos, with monthly stakeholder updates and documented escalation paths for blockers and incidents. QA practices include unit, integration, and end-to-end smoke tests, CI linting and security scans, manual acceptance testing where required, and a deployment checklist with rollback and incident playbooks. Risk and status templates (weekly status, incident communications) and a living risk register ensure transparency and consistent stakeholder updates.
+          EOF
           git add docs/README.md
           git commit -m "docs: add OctoAcme project management overview (docs/README.md)"
           git push --set-upstream origin "$PR_BRANCH"
